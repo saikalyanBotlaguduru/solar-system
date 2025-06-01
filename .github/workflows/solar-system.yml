@@ -34,11 +34,12 @@ jobs:
         continue-on-error: true
         run: npm run coverage
         
-      - name: Archive Test Result
+      - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-report-${{ github.run_id }}
-          path: coverage/
+          name: coverage-report-${{ github.run_number }}-${{ github.job }}
+
+          path: coverage
           retention-days: 2
 
 
