@@ -34,11 +34,11 @@ jobs:
         continue-on-error: true
         run: npm run coverage
         
-      - name: Archive Test Result-${{ matrix.nodejs_version }}-${{ strategy.job-total }}
+      - name: Archive Test Result
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report-${{ github.run_id }}
-          path: coverage
+          path: ./coverage
           retention-days: 2
 
 
