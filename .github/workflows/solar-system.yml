@@ -36,5 +36,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: Mocha-TestResult-${{ github.job }}-${{ strategy.job-index}}
+          name: Mocha-TestResult
           path: test-results.xml
