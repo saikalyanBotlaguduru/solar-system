@@ -29,7 +29,8 @@ jobs:
     
         - name: Install Dependencies
           run: npm install
-        - name: check out coverage
+
+        - name: Check Code Coverage
           run: npm run coverage
         
         - name: Archive Test Result
