@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report-${{ github.run_id }}
-          path: ./coverage
+          path: coverage/
           retention-days: 2
 
 
