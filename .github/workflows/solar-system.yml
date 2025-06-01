@@ -35,7 +35,7 @@ jobs:
         - name: Archive Test Result
           uses: actions/upload-artifact@v3
           with:
-            name: Code-Coverage-Rresult
+            name: Code-Coverage-Result
             path: coverage
             retention-days: 2
     
