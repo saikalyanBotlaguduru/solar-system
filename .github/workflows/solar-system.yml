@@ -42,13 +42,13 @@ jobs:
 
           path: coverage
           retention-days: 2
-          
+
       - name: unit testing
         id:  node-js-unit-test-stp 
         run: npm test
 
       - name: Archive Test Result
-        if:   always()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Mocha-TestResult-${{ matrix.operating_system }}${{ strategy.job-index }}
