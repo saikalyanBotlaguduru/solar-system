@@ -34,7 +34,7 @@ jobs:
         run: npm test
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
-          name: Mocha-TestResult-${{ github.job }}-${{ github.run_id }}
+          name: Mocha-TestResult-${{ github.job }}-${{ strategy.job-index}}
           path: test-results.xml
