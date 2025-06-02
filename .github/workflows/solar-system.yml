@@ -11,7 +11,7 @@ env:
   MONGO_USERNAME: ${{vars.MONGO_USERNAME}}
   MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
 jobs:
-   unit-testing:
+  unit-testing:
       name: unit testing
       strategy:
         matrix:
@@ -55,5 +55,46 @@ jobs:
           name: Mocha-TestResult-${{ matrix.operating_system }}${{ strategy.job-index }}
           path: test-results.xml
 
-                   # name: Mocha-TestResult-${{ matrix.operating_system }}-${{ strategy.job-index }}
+  code-coverage:
+        name: unit testing
+        strategy:
+          matrix:
+            nodejs_version: [19,20]
+            operating_system: [ubuntu-latest,macos-latest]
+            exclude:
+              - nodejs_version: 19
+                operating_system: macos_latest
+        runs-on: ${{ matrix.operating_system }}
+        steps:
+        - name: check out repo
+          uses: actions/checkout@v4
+        - name: set up node js version - ${{ matrix.nodejs_version }}
+          uses:  actions/setup-node@v3
+          with:
+            node-version: ${{matrix.nodejs_version}}
+        - name: install dependencies
+          run: npm install
+        - name: Check Code Coverage
+          continue-on-error: true
+          run: npm run coverage
+          
+        - name: Upload coverage report
+          uses: actions/upload-artifact@v4
+          with:
+            
+            name: Code-Coverage-Result-${{ matrix.nodejs_version }}-${{ matrix.operating_system }}
 
+            path: coverage
+            retention-days: 2
+
+        - name: unit testing
+          id:  node-js-unit-test-stp 
+          run: npm test
+
+        - name: Archive Test Result
+          if: always()
+          #if: steps.node-js-unit-test-stp.outcome == 'failure' || steps.node-js-unit-test-stp.outcome == 'success'
+          uses: actions/upload-artifact@v4
+          with:
+            name: Mocha-TestResult-${{ matrix.operating_system }}${{ strategy.job-index }}
+            path: test-results.xml
