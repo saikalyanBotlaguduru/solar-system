@@ -12,16 +12,23 @@ env:
   MONGO_PASSWORD: ${{secrets.MONGO_PASSWORD}}
 jobs:
   unit-testing:
-     name: Unit testing 
-     runs-on: ubuntu-latest
+     name: Unit testing
+     strategy:
+        matrix:
+          nodejs_version: [18,19,20]
+          operating_system: [ubuntu-latest, macos-latest]
+          exclude:
+            - nodejs_version: 18
+              operating_system: macos-latest
+     runs-on: ${{matrix.operating_system}}
      steps:
      - name: Checkout Repository
        uses: actions/checkout@v7.0.1
 
-     - name: Set up nodejs version 
+     - name: Set up nodejs version ${{matrix.nodejs_version}}
        uses: actions/setup-node@v7.0.0
        with:
-          node-version: 18
+          node-version: ${{matrix.nodejs_version}}
      - name: Install dependencies
        run: npm  install
 
