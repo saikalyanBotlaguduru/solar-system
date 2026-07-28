@@ -26,5 +26,11 @@ jobs:
        run: npm  install
 
      - name: Unit testing
-       run: npm test  
+       run: npm test
 
+     - name: Upload a Build Artifact
+       uses: actions/upload-artifact@v7.0.1
+       with:
+         name: Mocha - test result
+         path: test-result.xml
+     
