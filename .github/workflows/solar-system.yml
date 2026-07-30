@@ -16,7 +16,7 @@ jobs:
      strategy:
         matrix:
           nodejs_version: [18,20]
-          operating_system: [ubuntu-latest, macos-latest]
+          operating_system: [ubuntu-latest]
           exclude:
             - nodejs_version: 18
               operating_system: macos-latest
@@ -84,5 +84,15 @@ jobs:
           retention-days: 4
           
     
-      
+  docker:
+    name: containerization
+    needs: [unit-testing,code-coverage]
+    runs-on: ubuntu
+    steps:
+    - name: checkout Repository
+      uses: docker/build-push-action@v7.3.0
+      with:
+       username: ${{vars.DOCKERHUB_USERNAME}}
+       password: ${{secrets.DOCKERHUB_PASSWORD}}
+
         
