@@ -87,7 +87,7 @@ jobs:
   docker:
     name: containerization
     needs: [unit-testing,code-coverage]
-    runs-on: ubuntu
+    runs-on: ubuntu-latest
     steps:
     - name: checkout Repository
       uses: docker/build-push-action@v7.3.0
