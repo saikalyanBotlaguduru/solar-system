@@ -62,7 +62,7 @@ jobs:
          path: test-results.xml
     
   code-coverage:
-    - name: code coverage
+      name: code coverage
       container:
         image: node:18
 
